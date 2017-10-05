@@ -44,8 +44,8 @@ public final class TetrisPiece extends Piece {
             }
         }
 
-        tPiece.height = Collections.max(yVal) - Collections.min(yVal);
-        tPiece.width = Collections.max(xVal) - Collections.max(xVal);
+        tPiece.height = Collections.max(yVal) - Collections.min(yVal) + 1;
+        tPiece.width = Collections.max(xVal) - Collections.min(xVal) + 1;
 
         tPiece.skirt = new int [tPiece.width];
         for(int i = 0; i < tPiece.skirt.length; i++){
@@ -77,6 +77,12 @@ public final class TetrisPiece extends Piece {
 
     @Override
     public boolean equals(Object other) {
+        if(other instanceof TetrisPiece){
+            Point[] otherBody = ((TetrisPiece) other).getBody();
+            return (Arrays.equals(otherBody, this.getBody()));
+        }
         return false;
+
+
     }
 }
