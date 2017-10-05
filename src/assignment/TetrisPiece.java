@@ -25,14 +25,17 @@ public final class TetrisPiece extends Piece {
 
         TetrisPiece tPiece = new TetrisPiece();
         tPiece.body = Piece.parsePoints(pieceString);
-        ArrayList <Integer> xVal = new ArrayList<Integer>();
-        ArrayList <Integer> yVal = new ArrayList<Integer>();
+        ArrayList <Integer> xVals = new ArrayList<Integer>();
+        ArrayList <Integer> yVals = new ArrayList<Integer>();
+        tPiece.height = Collections.max(yVals) - Collections.min(yVals) + 1;
+        tPiece.width = Collections.max(xVals) - Collections.min(xVals) + 1;
+
 
         HashMap<Integer, Integer> skirtMap = new HashMap<Integer, Integer>();
 
         for(Point p : tPiece.body){
-            xVal.add(p.x);
-            yVal.add(p.y);
+            xVals.add(p.x);
+            yVals.add(p.y);
 
             if(skirtMap.containsKey(p.x)){
                 if(p.y < skirtMap.get(p.x)) {
@@ -43,9 +46,6 @@ public final class TetrisPiece extends Piece {
                 skirtMap.put(p.x, p.y);
             }
         }
-
-        tPiece.height = Collections.max(yVal) - Collections.min(yVal) + 1;
-        tPiece.width = Collections.max(xVal) - Collections.min(xVal) + 1;
 
         tPiece.skirt = new int [tPiece.width];
         for(int i = 0; i < tPiece.skirt.length; i++){
